@@ -23,7 +23,8 @@ Mini‑site **HTML + CSS + JavaScript puro** criado para que estudantes de g
 
 | Caminho                               | Descrição                                                  |
 |---------------------------------------|------------------------------------------------------------|
-| `buggy_defect_management_site.html`   | Página única com todas as funcionalidades bugadas.         |
+| `index.html`   | Página única com todas as funcionalidades bugadas.         |
+| `index_instrutor.html`   | Página incluindo comentários dos erros.         |
 | `README.md`                           | Este arquivo — instruções e objetivos.                     |
 
 > Caso deseje separar o CSS/JS em arquivos externos, sinta‑se livre para fazê‑lo; os bugs continuarão funcionando 😉.
@@ -39,20 +40,20 @@ $ git clone https://github.com/<SEU_USUARIO>/defect‑management‑lab.git
 $ cd defect‑management‑lab
 
 # Basta abrir o arquivo HTML
-$ start buggy_defect_management_site.html   # Windows
-$ open buggy_defect_management_site.html    # macOS
+$ start index.html   # Windows
+$ open index.html    # macOS
 ```
 
 ### 2. Servidor Local (recomendado para evitar restrições de CORS)
 ```bash
 # Python ≥3.7
 $ python -m http.server 8000
-# Navegue até http://localhost:8000/buggy_defect_management_site.html
+# Navegue até http://localhost:8000/index.html
 ```
 
 ### 3. GitHub Pages
 1. Vá em **Settings ▸ Pages** e aponte para o branch principal.
-2. O site ficará disponível em `https://<SEU_USUARIO>.github.io/defect‑management‑lab/buggy_defect_management_site.html`.
+2. O site ficará disponível em `https://<SEU_USUARIO>.github.io/defect‑management‑lab/index.html`.
 
 ---
 
