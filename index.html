@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Qualidade de Software - Gerenciamento de Defeitos – Lab Interativo</title>
+  <style>
+    body {font-family: Arial, sans-serif; margin:0; padding:0; line-height:1.6; background:#f8f9fa;}
+    header {background:#343a40; color:#fff; padding:1rem;}
+    nav a {color:#fff; margin:0 0.5rem; text-decoration:none;}
+    section {padding:1.5rem;}
+    .box {background:#fff; border-radius:8px; padding:1rem; box-shadow:0 2px 4px rgba(0,0,0,0.1); margin-bottom:2rem;}
+    input, button {padding:0.5rem; border:1px solid #ccc; border-radius:4px;}
+    button {cursor:pointer;}
+    ul {list-style-type:none; padding:0;}
+    ul li {background:#ececec; margin:0.3rem 0; padding:0.5rem; border-radius:4px; display:flex; justify-content:space-between;}
+  </style>
+</head>
+<body>
+<header>
+  <h1>Laboratório de Gerenciamento de Defeitos</h1>
+  <nav>
+    <a href="#intro">Introdução</a> |
+    <a href="#calc">Calculadora Bugada</a> |
+    <a href="#todo">Lista de Tarefas Bugada</a> |
+    <a href="#form">Formulário Bugado</a> |
+    <a href="#search">Busca Bugada</a>
+  </nav>
+</header>
+
+<section id="intro" class="box">
+  <h2>Introdução</h2>
+  <p>Este mini‑site foi criado para apoiar a disciplina de <strong>Qualidade de Software</strong>. Cada funcionalidade abaixo contém <em>defeitos propositais</em>. Seu objetivo é explorá‑las, aplicar técnicas de teste (caixa‑preta, caixa‑branca, critérios de cobertura etc.) e registrar os defeitos encontrados seguindo um fluxo completo de <abbr title="Defect Management">Gerenciamento de Defeitos</abbr>:</p>
+  <ol>
+    <li>Identificação</li>
+    <li>Registro</li>
+    <li>Classificação &amp; Priorização</li>
+    <li>Réplica</li>
+    <li>Correção</li>
+    <li>Verificação &amp; Fechamento</li>
+  </ol>
+  <p><strong>Dica para os alunos:</strong> teste entradas limites, valores inesperados e verifique se as saídas estão de acordo com os requisitos implícitos.</p>
+</section>
+
+<section id="calc" class="box">
+  <h2>Calculadora Bugada</h2>
+  <p>Some dois números. Parece simples, mas algo não está certo&hellip;</p>
+  <input id="num1" type="text" placeholder="Número 1">
+  <input id="num2" type="text" placeholder="Número 2">
+  <button onclick="add()">Somar</button>
+  <p>Resultado: <span id="calcResult">‑</span></p>
+</section>
+
+<section id="todo" class="box">
+  <h2>Lista de Tarefas Bugada</h2>
+  <input id="todoInput" type="text" placeholder="Nova tarefa">
+  <button onclick="addItem()">Adicionar</button>
+  <ul id="todoList"></ul>
+  <p>Total de itens: <span id="todoCount">0</span></p>
+</section>
+
+<section id="form" class="box">
+  <h2>Formulário Bugado</h2>
+  <form onsubmit="return validateForm()">
+    <label>Email: <input id="email" type="text" placeholder="exemplo@email.com"></label><br><br>
+    <label>Idade: <input id="age" type="number" placeholder=">=0"></label><br><br>
+    <button type="submit">Enviar</button>
+  </form>
+  <p id="formMsg"></p>
+</section>
+
+<section id="search" class="box">
+  <h2>Busca Bugada</h2>
+  <input id="searchInput" type="text" placeholder="Buscar item">
+  <button onclick="doSearch()">Buscar</button>
+  <ul id="searchResults"></ul>
+</section>
+
+<script>
+function add(){
+  const a = document.getElementById('num1').value;
+  const b = document.getElementById('num2').value;
+  const result = parseInt(a) + parseInt(b);
+  document.getElementById('calcResult').innerText = result;
+}
+
+const items = [];
+function addItem(){
+  const input = document.getElementById('todoInput');
+  items.push(input.value);
+  input.value = '';
+  renderList();
+}
+function removeItem(index){
+  items.splice(index, index);
+  renderList();
+}
+function renderList(){
+  const ul = document.getElementById('todoList');
+  ul.innerHTML = '';
+  items.forEach((text, i)=>{
+    const li = document.createElement('li');
+    li.innerHTML = text + ' <button onclick="removeItem('+i+')">X</button>';
+    ul.appendChild(li);
+  });
+  document.getElementById('todoCount').innerText = items.length;
+}
+
+function validateForm(){
+  const email = document.getElementById('email').value;
+  const age = Number(document.getElementById('age').value);
+  const emailOk = /^[\w\.-]+@.*\..*$/.test(email);
+  const ageOk = age < 150;
+  const msg = (emailOk && ageOk) ? 'Dados enviados com sucesso!' : 'Dados inválidos!';
+  document.getElementById('formMsg').innerText = msg;
+  return false;
+}
+
+const catalog = ['Computador', 'Mouse', 'Teclado', 'Monitor', 'Cabo', 'Placa‑mãe', 'Memória'];
+function doSearch(){
+  const term = document.getElementById('searchInput').value;
+  const results = catalog.filter(item => item.indexOf(term) >= 0);
+  const list = document.getElementById('searchResults');
+  list.innerHTML = results.map(r => '<li>'+r+'</li>').join('');
+}
+</script>
+</body>
+</html>
